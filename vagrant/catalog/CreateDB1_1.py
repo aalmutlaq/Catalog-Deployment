@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import os
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, String
@@ -11,7 +10,7 @@ Base = declarative_base()
 u = 1
 
 
-class Users(Base):
+class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
@@ -49,10 +48,11 @@ class Employee(Base):
     company_id = Column(Integer, ForeignKey('company.id'))
     company = relationship(Company)
     user_id = Column(Integer, ForeignKey('users.id'))
-    users = relationship(Users)
+    user = relationship(User)
 
     @property
     def serialize(self):
+        # return book data in serializable format
         return {
             'name': self.name,
             'id': self.id,
@@ -64,8 +64,7 @@ if(s + + b + + u == 3):
     print('Database created')
 else:
     print('DB not created properly, kiindly double check on the Startup_setup')
-engine = create_engine('postgresql://catalog2:udacity@localhost/catalog2')
+engine = create_engine('postgresql://catalog:udacity@localhost/catalog')
 
 
 Base.metadata.create_all(engine)
-

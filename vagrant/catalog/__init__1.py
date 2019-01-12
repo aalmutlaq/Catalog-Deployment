@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Flask, render_template, request,\
     redirect, url_for, flash, make_response, jsonify
 from flask import session as login_session
@@ -6,23 +7,25 @@ from sqlalchemy.orm import sessionmaker
 from CreateDB import Base, Company, Employee, User
 from sqlalchemy.pool import SingletonThreadPool
 from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
+from flask_sqlalchemy import SQLAlchemy
 import json
 import random
 import string
 import httplib2
 import requests
+import os
 
 # Instance, every time it runs create instance name
 app = Flask(__name__)
 engine = create_engine(
-    'sqlite:///company.db?check_same_thread=False',
+    'postgresql://catalog:udacity@localhost/catalog',
     poolclass=SingletonThreadPool)
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-CLIENT_ID = json.loads(open('google_client_secret.json', 'r').read())[
+CLIENT_ID = json.loads(open('/var/www/Catalog/Catalog-Deployment/vagrant/catalog/google_client_secret.json', "r").read())[
     'web']['client_id']
 
 
@@ -42,20 +45,19 @@ def gconnect():
         return response
     code = request.data
     try:
-        oauth_flow = flow_from_clientsecrets(
-            'google_client_secret.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/Catalog/Catalog-Deployment/vagrant/catalog/google_client_secret.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = json.loads(oauth_flow.step2_exchange(code).to_json())
     except FlowExchangeError:
         response = make_response(json.dumps(
             'Failed to upgrade the authorization code'), 401)
         response.headers['Content-Type'] = 'application/json'
-        return response
+        return response.decode()
     access_token = credentials['access_token']
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' %
            access_token)
     h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+    result = json.loads(h.request(url, 'GET')[1].decode())
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 50)
         response.headers['Content-Type'] = 'application/json'
@@ -111,7 +113,7 @@ def gdisconnect():
     url = ("https://accounts.google.com/o/oauth2/revoke?token=%s"
            % access_token)
     h = httplib2.Http()
-    result = h.request(url, 'GET')[0]
+    result = h.request(url, 'GET')[0].decode()
     if result['status'] == '200':
         del login_session['credentials']
         del login_session['gplus_id']
@@ -213,7 +215,7 @@ def deleteEmployee(company_id, employee_id):
 
 def getUserID(email):
     try:
-        user = session.query(User).filter_by(email=email).one()
+        user = session.query(User).filter_by(email=email).first()
         return user.id
     except ValueError:
         return None
@@ -231,8 +233,8 @@ def createUser(login_session):
     newUser = User(name=username, email=email, picture=picture)
     session.add(newUser)
     session.commit()
-    user = session.query(User).filter_by(email=email).one()
-    return user.id
+    user = session.query(User).filter_by(email=email).first()
+    return users.id
 
 
 # Endpoint Json
@@ -262,4 +264,4 @@ def employeeListJSON():
 if __name__ == '__main__':
     app.secret_key = 'super_secure'
     app.debug = True
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=80)

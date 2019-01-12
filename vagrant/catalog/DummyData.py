@@ -1,9 +1,10 @@
+#!/usr/bin/python3
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from CreateDB import Company, Base, Employee
 
-engine = create_engine('sqlite:///company.db')
+engine = create_engine('postgresql://catalog2:udacity@localhost/catalog2')
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
