@@ -1,6 +1,8 @@
 Steps of accomplishing the deployment project:
 1-	Create an instance in Amazon lightsail 
-2-	Generate ssh keys by $ sudo ssh-keygen 
+
+2-	Generate ssh keys by $ sudo ssh-keygen
+
 3-	Move the private key in your directory ~/.ssh/filename
 4-	Add permission to the key so no one can read or write on it except the owner by $ chmod 600 ~/.ssh/
 5-	Connect to the instance using ssh. $ ssh –i ~/.ssh/key grader@ipaddress
