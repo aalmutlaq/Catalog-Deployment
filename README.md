@@ -1,17 +1,10 @@
 #Name: Abdullah ALmutlaq
-
 #Institution: Misk-Udacity
-
 #Course: Full Stack Nanodegree
-
 #Instructor: Lujain Algholaiqa
-
 #Project: Linux Server Configuration
-
 #Date: 13/01/2019
-
-#Version: 1.1 accordingly with reviewer's suggestions.
-
+#Version: 1.0 accordingly with reviewer's suggestions.
 #Link: http://3.120.247.149.xip.io/
 
 
@@ -132,7 +125,6 @@ II. Application
 
 
 #References:
-
 1- Update and upgrade packages that resist even after you ran the commands apt-get update && apt-get upgrade
 Link: https://serverfault.com/questions/265410/ubuntu-server-message-says-packages-can-be-updated-but-apt-get-does-not-update
 
@@ -141,3 +133,6 @@ Link: http://manpages.ubuntu.com/manpages/xenial/en/man5/sshd_config.5.html
 
 3- Apache2 configuration
 Link: https://tutorials.ubuntu.com/tutorial/install-and-configure-apache#0
+
+4- SSH Logging and Restrictions
+Link : https://www.digitalocean.com/community/tutorials/how-to-tune-your-ssh-daemon-configuration-on-a-linux-vps
