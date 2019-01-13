@@ -132,6 +132,7 @@ II. Application
 
 
 #References:
+
 1- Update and upgrade packages that resist even after you ran the commands apt-get update && apt-get upgrade
 Link: https://serverfault.com/questions/265410/ubuntu-server-message-says-packages-can-be-updated-but-apt-get-does-not-update
 
