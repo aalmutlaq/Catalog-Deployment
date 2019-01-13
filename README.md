@@ -1,9 +1,18 @@
 #Name: Abdullah ALmutlaq
+
 #Institution: Misk-Udacity
+
 #Course: Full Stack Nanodegree
+
 #Instructor: Lujain Algholaiqa
+
 #Project: Linux Server Configuration
+
 #Date: 13/01/2019
+
+#Version: 1.1 accordingly with reviewer's suggestions.
+
+#Link: http://3.120.247.149.xip.io/
 
 
 
@@ -109,3 +118,25 @@ II. Application
         - SQLAchemy
         - Flask
         - Postgres Database 
+    
+    # JSON endpoints
+        There are three JSON endpoints 
+        - Get List of all categories 
+            http://3.120.247.149.xip.io/companies/json/
+
+        - Get list of employees by company ID
+            http://3.120.247.149.xip.io/companies/Emp/1/json
+
+        - Get all Companies and Employees
+            http://3.120.247.149.xip.io/companies/EmpList/json
+
+
+#References:
+1- Update and upgrade packages that resist even after you ran the commands apt-get update && apt-get upgrade
+Link: https://serverfault.com/questions/265410/ubuntu-server-message-says-packages-can-be-updated-but-apt-get-does-not-update
+
+2-sshd_config 
+Link: http://manpages.ubuntu.com/manpages/xenial/en/man5/sshd_config.5.html
+
+3- Apache2 configuration
+Link: https://tutorials.ubuntu.com/tutorial/install-and-configure-apache#0
